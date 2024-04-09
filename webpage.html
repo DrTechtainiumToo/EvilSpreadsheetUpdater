@@ -1,0 +1,123 @@
+<!--
+//https://www.vmix.com/help26/GoogleAPIKey.html
+
+//ID: serviceaccountname
+//email: serviceaccountname@sheet-to-rm-site.iam.gserviceaccount.com
+//spreadsheet id: 1WpSPIxqXrUR7gcMLPrL1UR4h7nmh3JMHI2rq7h52-Nk
+//sheet name: Sheet1
+//grid id: gid=0 (what page I want to edit)
+//apikey: AIzaSyCHDFUtGTglWlYysv5hbNPW9vwpy3Lq8GA
+//restricted to google sheet API, and websites
+
+// This is acutally useful:
+//https://github.com/google/google-api-javascript-client/blob/master/docs/start.md
+//https://javascript.info
+
+
+// For later
+//https://astexplorer.net
+//https://macromates.com/manual/en/language_grammars
+// https://github.com/tlaceby/guide-to-interpreters-series
+
+FOR TESTING
+python3 -m http.server 8000
+http://localhost:8000
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matches Status</title>
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Matches Status</h1>
+        <div class="match-card">
+            <h2>Current Match</h2>
+            <div class="team-container">
+                <div class = 'mainteam' id="MainTeamA">Loading Main Team A...</div>
+                <div class="versus">VS</div>
+                <div class = 'mainteam' id="MainTeamB">Loading Main Team B... </div>
+            </div>
+            <h3 id="CurrentTeamTime">Loading Time...</h3>
+        </div>
+
+    <div class="match-card" onclick="location.href='match-detail.html'">
+        <div class="match-header">Next Match</div>
+        <div class="match-teams">
+            <span class="team-name" id="NextTeamA">Loading Team</span>
+            <img src="Georgia_Tech's_Buzz_logo.svg.png" alt="UT logo" class="team-logo">
+            <span class="match-score">2 : 1</span>
+            <img src="images-2.png" alt="Georgia Tech logo" class="team-logo">
+            <span class="team-name" id="NextTeamB">Loading Team</span>
+        </div>
+        <div class="match-time" id="NextTeamTime">Loading Time</div>
+    </div>
+
+    <script>
+
+    window.onload = function() {
+        gapi.load('client', start);
+    };
+
+    function start() {
+        gapi.client.init({
+            apiKey: 'AIzaSyCHDFUtGTglWlYysv5hbNPW9vwpy3Lq8GA',
+            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+        }).then(function () {
+            loadSheetData();
+            setInterval(loadSheetData, 15000); // Refresh every x miliseconds
+        });
+    }
+
+    function loadSheetData() {
+        gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: '1WpSPIxqXrUR7gcMLPrL1UR4h7nmh3JMHI2rq7h52-Nk',
+            range: 'Sheet1!A2:E20',
+        }).then(function(response) {
+            var values = response.result.values;
+            console.log(values)
+            // to get next match
+
+            let CurrentMatch = 0
+            for (let i = 0; i < values.length; i++) {
+                if (values[i][4] == "FALSE") { 
+                    CurrentMatch = [i]
+                    console.log(CurrentMatch, "CurrentMatch")
+                    break
+                }
+            } // current match is the first match in the spreadhseet that has not been checked as finished
+
+            // Array values
+            // 0 = Team1 , 1 = vs (just for spreadsheet clarity, ignore), 2 = Team2, 3 = Time, 4 = Checkbox values (T/F, from the finished checkbox in spreadsheet)
+            document.getElementById('MainTeamA').textContent = values[CurrentMatch][0];
+            document.getElementById('MainTeamB').textContent = values[CurrentMatch][2];
+            document.getElementById('CurrentTeamTime').textContent = values[CurrentMatch][3];
+            
+            //do for loop to get rest of them
+            
+            // Update values for next match
+            if (CurrentMatch + 1 < values.length) {
+                document.getElementById('NextTeamA').textContent = values[CurrentMatch + 1][0];
+                document.getElementById('NextTeamB').textContent = values[CurrentMatch + 1][2];
+                document.getElementById('NextTeamTime').textContent = values[CurrentMatch + 1][3];
+                console.log(CurrentMatch,"CurrentMatch2")
+            } else {
+                // If there are no more matches
+                document.getElementById('NextTeamA').textContent = "No more matches";
+                document.getElementById('NextTeamB').textContent = "No more matches";
+                document.getElementById('NextTeamTime').textContent = values[CurrentMatch + 1][3];
+
+            }
+        }, function(response) {
+            console.error('Error: ' + response.result.error.message);
+        });
+    }
+    </script>
+</body>
+</html>

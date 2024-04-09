@@ -1,0 +1,174 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.match-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.mainteam {
+  font-size: 24px;
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.team-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.team-container h2 {
+  font-size: 20px;
+}
+
+.versus {
+  margin: 0 20px; /* Adjust the spacing around the "VS" text */
+  font-weight: bold;
+  /* Additional styling for the "VS" text if needed */
+}
+
+
+
+
+
+
+
+
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #444;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 600px;
+}
+
+.match-title {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.team-logo {
+  width: 50px; /* Adjust size accordingly */
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.team-name {
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.match-time {
+  font-size: 1em;
+  color: #666;
+  text-align: center;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin: 10px;
+  }
+}
+
+
+
+
+
+
+
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.match-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 20px auto;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-5px);
+}
+
+.match-header {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.match-teams {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.team-name {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.match-score {
+  font-size: 1.3em;
+  color: #E53E3E; /* Change as needed */
+}
+
+.match-time {
+  font-size: 1em;
+  color: #666;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .match-card {
+      margin: 10px;
+  }
+}
