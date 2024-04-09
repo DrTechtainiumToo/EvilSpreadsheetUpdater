@@ -87,7 +87,7 @@ http://localhost:8000
             let CurrentMatch = 0
             for (let i = 0; i < values.length; i++) {
                 if (values[i][4] == "FALSE") { 
-                    CurrentMatch = [i]
+                    CurrentMatch = i
                     console.log(CurrentMatch, "CurrentMatch")
                     break
                 }
@@ -103,16 +103,14 @@ http://localhost:8000
             
             // Update values for next match
             if (CurrentMatch + 1 < values.length) {
-                document.getElementById('NextTeamA').textContent = values[CurrentMatch + 1][0];
-                document.getElementById('NextTeamB').textContent = values[CurrentMatch + 1][2];
-                document.getElementById('NextTeamTime').textContent = values[CurrentMatch + 1][3];
-                console.log(CurrentMatch,"CurrentMatch2")
+                document.getElementById('NextTeamA').textContent = values[CurrentMatch +1][0];
+                document.getElementById('NextTeamB').textContent = values[CurrentMatch +1][2];
+                document.getElementById('NextTeamTime').textContent = values[CurrentMatch +1][3];
             } else {
                 // If there are no more matches
                 document.getElementById('NextTeamA').textContent = "No more matches";
                 document.getElementById('NextTeamB').textContent = "No more matches";
-                document.getElementById('NextTeamTime').textContent = values[CurrentMatch + 1][3];
-
+                document.getElementById('NextTeamTime').textContent = "No more times";
             }
         }, function(response) {
             console.error('Error: ' + response.result.error.message);
